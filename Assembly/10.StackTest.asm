@@ -3,22 +3,22 @@
 section .text
 global CMAIN
 CMAIN:
-    mov rbp, rsp ; for correct debugging
+    mov rbp, rsp ; bp와 sp 포인터 레지스터 ; for correct debugging
     
     ; 스택 메모리, 스택 프레임
     
     ; 레지스터는 다양한 용도로 사용
     ; - a b c d 범용 레지스터
     ; - 포인터 레지스터 (포인터 = 위치를 가리키는 주소값)
-    ; -- ip (Instruction Pointer) : 다음 수행 명령어의 위치
+    ; -- ip (Instruction Pointer) : 다음 수행 명령어의 위치 -> 메모리의 code영역을 가리킨다
     ; -- sp (Stack Pointer) : 현재 스택 top 위치 (일종의 cursor)
     ; -- bp (Base Pointer) : 스택 상대주소 계산용
     
-    push 1
+    push 1 ; 8byte의 1을 스택프레임에 넣는다.
     push 2
     push 3
     
-    pop rax ; pop한것을 rax에 넣어준다.
+    pop rax ; pop한것을 -> rax에 넣어준다.
     pop rbx
     pop rcx
     
