@@ -5,65 +5,63 @@ global CMAIN
 CMAIN:
     mov rbp, rsp ; for correct debugging
     
-    ; 분기문 (if / ifelse)
-    ; 특정 조건에 따라서 코드 흐름을 제어하는 것
-
-    ; 조건 체크(비교 등) -> 흐름
+    ; 반복문 (while for do-while)
+    ; 특정 조건을 만족할 때까지 반복해서 실행
     
-    ; CMP dst, src (dst를 기준으로 비교)
-    ; 비교를 한 결과물은 Flag Register(eflag)에 저장
-    ; (상태 / 결과 저장용 레지스터도 있다)
+    ; 어셈블리에서는 분기문으로 구현
     
-    ; JMP [label] 시리즈
-    ; JMP : "무조건" jump
-    ; JE : JumpEquals 같으면 jump
-    ; JNE : JumpNotEquals 다르면 jump
-    ; JG : JumpGreater 크면 jump
-    ; JGE : JumpGreaterEquals 크거나 같으면 jump
-    ; JL
-    ; JLE
+    mov ecx, 10 ; 반복 조건
     
-    ; 두 숫자가 같으면 1, 아니면 0을 출력하는 프로그램
+LABEL_LOOP:
+    PRINT_STRING msg
+    NEWLINE
+    dec ecx ; sub ecx, 1 과 동일하지만 좀더 빠름!
+    cmp ecx, 0
+    jne LABEL_LOOP
     
-    mov rax, 10
-    mov rbx, 20
+    ; 연습 문제) 1에서 100까지의 합을 구하는 프로그램
+    ; sol1) 1부터
+    mov eax, 100
+    xor ebx, ebx ; mov ebx, 0 과 동일한데 빠름
+    xor ecx, ecx
     
-    cmp rax, rbx
+LABEL_SUM:
+    inc ecx ; add ecx, 1 와 동일하지만 좀더 빠름!
+    add ebx, ecx
     
-    je LABEL_EQUAL
+    cmp ecx, eax
+    jne LABEL_SUM ; 위에 cmp가 곧바로 와야 플래그 판별 가능!!
     
-    ; je에 의해 점프를 안했다면, 같지 않다는 의미
-    mov rcx, 0
-    jmp LABEL_EQUAL_END
-    
-LABEL_EQUAL: 
-    mov rcx, 1
-    
-LABEL_EQUAL_END:
-    PRINT_HEX 1, rcx
+    PRINT_DEC 2, ebx
     NEWLINE
     
-    ; 연습 문제 : 어떤 숫자(1~10)가 짝수면 1, 홀수면 0을 출력하는 프로그램
-    ; 나누기 연산
-    ; div reg
-    ; - div b1 => ax / bl (al몫 ah나머지)
-    mov ax, 91
-    mov bl, 2
-    div bl
+    ; sol2) 100부터
+    xor ebx, ebx
+    mov ecx, 100
     
-    cmp ah, 0 ; sol2) xor al, 0x01 하고 그대로 출력해도 됨!
-    je LABEL_EVEN
+LABEL_SUM2:
+    add ebx, ecx
+    dec ecx
     
-    mov rcx, 0
-    jmp LABEL_EVEN_END
+    cmp ecx, 0
+    jne LABEL_SUM2
     
-LABEL_EVEN:
-    mov rcx, 1
-    
-LABEL_EVEN_END:
-    PRINT_HEX 1, rcx
+    PRINT_DEC 2, ebx
     NEWLINE
     
+    ; 어셈블리 차원에서 반복문 문법도 있다
+    ; loop [라벨]
+    ; - ecx에 반복 횟수 
+    ; - loop할때 마다 exc 1감소 -> 0이 아니면 라벨로 이동/0이면 빠져나감
+    xor ebx, ebx
+    mov ecx, 100
+    
+LABEL_LOOP_SUM: ; loop 내부에서 ecx를 건들면 반복횟수도 변경됨..
+    add ebx, ecx ; loop 내부가 1줄 이상이면 short jump is out of range 에러 발생. 다른 코드 추가해야함
+    loop LABEL_LOOP_SUM ; dec ecx와 cmp ecx, 0과 jne LABEL_LOOP_SUM이 포함된 것!!
+    
+    PRINT_DEC 2, ebx
+    NEWLINE
     
     xor rax, rax
     ret
@@ -71,8 +69,8 @@ LABEL_EVEN_END:
     ; 초기화 된 데이터
     ; [변수이름] [크기] [초기값]
     ; [크기] : db(1byte)/dw(2byte)/dd(4byte)/dq(8byte)
-;section .data   
-
+section .data
+    msg db 'Hello World', 0x00
     
     ; 초기화 되지 않은 데이터
     ; [변수이름] [크기] [개수]

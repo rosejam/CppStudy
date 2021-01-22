@@ -5,7 +5,7 @@ global CMAIN
 CMAIN:
     mov rbp, rsp ; for correct debugging
     
-    ; 분기문 (if / ifelse)
+    ; 분기문 (if if-else)
     ; 특정 조건에 따라서 코드 흐름을 제어하는 것
 
     ; 조건 체크(비교 등) -> 흐름
