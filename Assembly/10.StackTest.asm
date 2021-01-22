@@ -28,7 +28,7 @@ PRINT_MSG:
 ; 입력값을 어떻게 받고 출력값은 어떻게 반환할까?
 ; 일단 eax와 ebx에 입력값, ecx에 반환값으로 할 수도 있다. 
 MAX:
-    call PRINT_MSG
+    call PRINT_MSG ; 함수 안에서 다른 함수를 호출
     cmp eax, ebx
     jg L1
     mov ecx, ebx
