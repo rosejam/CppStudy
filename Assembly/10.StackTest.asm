@@ -14,38 +14,42 @@ CMAIN:
     ; -- sp (Stack Pointer) : 현재 스택 top 위치 (일종의 cursor)
     ; -- bp (Base Pointer) : 스택 상대주소 계산용
     
-    push rax
+    ; 레지스터 백업
+    push rax 
     push rbx
+    
     push 1 ; 8byte의 1를 스택프레임에 넣는다.
     push 2
     
-    call MAX
-    PRINT_DEC 8, rax
+    call MAX ; rax, rbx 레지스터를 사용한다.
+    PRINT_DEC 8, rax ; a 레지스터에 리턴값을 받아온다
     NEWLINE
     
-    ;pop rax ; pop한 2를 -> rax에 넣어준다.
+    ;pop rax ; pop한 2를 rax에 넣어준다.
     ;pop rbx
-    ; push 두번 해놓은 거를 pop 두번 대신 sp에 16을 더해 해결할 수 있다!!!
+    ; push 두번 해놓은 거를 pop 두번 대신 sp에 16을 더해 해결할 수 있다!!!!
     add rsp, 16
+    
+    ; 레지스터 복원
     pop rbx
-    pop rax
+    pop rax 
             
     xor rax, rax
-    ret ; main함수를 종료
+    ret
     
-MAX: ; 스택 프레임으로 받은 두 인자 중 더 큰 값을 rax에 넣는다.
-    push rbp ; 패턴
-    mov rbp, rsp ; 패턴
     
-    mov rax, [rbp+16] ; 2
-    mov rbx, [rbp+24] ; 1
+MAX: ; 스택 프레임으로 받은 두 인자 중 더 큰 값을 rax에 넣는다
+    push rbp ; bp 패턴!
+    mov rbp, rsp ; bp 패턴!
     
+    mov rax, [rbp+16] ; 2 (main에서 push하여 전달한 인자!)
+    mov rbx, [rbp+24] ; 1 (main에서 push하여 전달한 인자!)
     cmp rax, rbx
     jg L1
     mov rax, rbx
 L1:
 
-    pop rbp ; 패턴
+    pop rbp ; bp 패턴!
     ret
     
 
