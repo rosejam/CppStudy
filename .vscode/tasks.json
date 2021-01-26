@@ -1,0 +1,102 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "g++ build and run",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+              "-std=gnu++11", //버전
+              // "-O2", //최적화(swea에서는 안해준다는 말이 있음)
+              // "-W",
+              "-g", // 디버깅 옵션
+              "-Wall", //오류 경고 띄워줌
+              "-pedantic-errors",
+              //"-static", //
+              //"-lm", //
+              "${file}",
+              "-o",
+              "${fileDirname}/${fileBasenameNoExtension}",//"${fileDirname}/build/${fileBasenameNoExtension}",//.out파일들을 넣을 폴더 표시
+              "-DLOCAL_PROJECT",
+              //"--debug",
+              
+              "&&",
+              "${fileDirname}/${fileBasenameNoExtension}", // 실행 command 추가
+
+              //"<",
+              //"${fileDirname}/input.txt",
+
+              //">",
+              //"${fileDirname}/output.txt",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            }
+        },
+        
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "${fileDirname}/${fileBasenameNoExtension}",//"${fileDirname}/build/${fileBasenameNoExtension}",//.out파일들이 있는 폴더 표시
+            // "args": [
+
+            // ],
+            // "problemMatcher": [
+
+            // ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        }, 
+
+        {
+            "label": "g++ build only",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=gnu++11", //버전
+                // "-O2", //최적화(swea에서는 안해준다는 말이 있음)
+                // "-W",
+                "-g", // 디버깅 옵션
+                "-Wall", //오류 경고 띄워줌
+                "-pedantic-errors",
+                //"-static", //
+                //"-lm", //
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}", //"${fileDirname}/build/${fileBasenameNoExtension}",//.out파일들을 넣을 폴더 표시
+                "-DLOCAL_PROJECT",
+                //"--debug",
+
+                //"<",
+                //"${fileDirname}/input.txt",
+                //">",
+                //"${fileDirname}/output.txt",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            // "group": "build",
+        },
+         
+        // 맥이 터미널 열게 하도록 한번 실행
+        {
+            "label": "Open Terminal",
+            "type": "shell",
+            "command": "osascript -e 'tell application \"Terminal\"\ndo script \"echo hello\"\nend tell'",
+            "problemMatcher": []
+        }
+        
+    ]
+}

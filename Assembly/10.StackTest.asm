@@ -22,25 +22,25 @@ CMAIN:
     push 2
     
     call MAX ; rax, rbx 레지스터를 사용한다.
-    PRINT_DEC 8, rax ; a 레지스터에 리턴값을 받아온다
+    PRINT_DEC 8, rax ; rax에 리턴값을 받아온다!!
     NEWLINE
     
     ;pop rax ; pop한 2를 rax에 넣어준다.
-    ;pop rbx
-    ; push 두번 해놓은 거를 pop 두번 대신 sp에 16을 더해 해결할 수 있다!!!!
+    ;pop
+    ; push 두번 해놓은 거를 pop 두번하는 대신 sp에 16을 더해 해결할 수 있다!!
     add rsp, 16
     
     ; 레지스터 복원
     pop rbx
     pop rax 
-            
+
     xor rax, rax
     ret
     
     
 MAX: ; 스택 프레임으로 받은 두 인자 중 더 큰 값을 rax에 넣는다
-    push rbp ; bp 패턴!
-    mov rbp, rsp ; bp 패턴!
+    push rbp ; 1. 이전 bp 저장!
+    mov rbp, rsp ; 2. 지금 sp위치를 새로운 bp로 함!
     
     mov rax, [rbp+16] ; 2 (main에서 push하여 전달한 인자!)
     mov rbx, [rbp+24] ; 1 (main에서 push하여 전달한 인자!)
@@ -49,7 +49,7 @@ MAX: ; 스택 프레임으로 받은 두 인자 중 더 큰 값을 rax에 넣는다
     mov rax, rbx
 L1:
 
-    pop rbp ; bp 패턴!
+    pop rbp ; 3. 이전 bp 복원!
     ret
     
 
