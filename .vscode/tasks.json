@@ -41,7 +41,7 @@
               "-Wall",
               "-Wextra",
               "${file}",
-              "-O3",
+              //"-O3",
               "-masm=intel",
               "-S",
               "-o",
