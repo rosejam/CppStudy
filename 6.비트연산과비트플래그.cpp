@@ -6,7 +6,20 @@ using namespace std;
 
 unsigned char flag; // 부호를 없애야 >>를 하더라도 부호비트가 딸려오지 않음!
 
-int main() {
+// const : 한번 정해지면 절대 바뀌지 않을 것들. 이후에 수정되지 않음
+// constant의 약자(변수를 상수화 한다고 함!)
+// const를 붙였으면 초기값을 반드시 지정해야 함
+
+// 0b0000 [무적][공포][변이][스턴][띄워짐]
+// 이 부분을 하드코딩 하지 않기 위해 const 사용!!
+const int INVINCIBLE = 4;
+const int FEAR = 3;
+const int POLYMORPH = 2;
+const int STUN = 1;
+const int AIRBORNE = 0;
+
+int main() 
+{
 #pragma region 비트 연산
     // 언제 필요한가? (사실 많이는 필요없음)
     // 비트 단위의 조작이 필요할 때
@@ -42,10 +55,11 @@ int main() {
     // - unsigned인 경우 0
 
     // BitFlag실습
-    // 0b0000 [무적][변이][스턴][띄워짐]
-    const int INVINCIBLE = 3;
-    const int POLYMORPH = 2;
-    const int STUNNED = 1;
+    // // 0b0000 [무적][변이][스턴][띄워짐]
+    // const int INVINCIBLE = 3;
+    // const int POLYMORPH = 2;
+    // const int STUN = 1;
+    // const int AIRBORNE = 0;
 
     // 무적 상태로 만든다
     flag = (1 << INVINCIBLE);  //0b1000
@@ -58,8 +72,8 @@ int main() {
     bool invincible = ((flag & (1 << INVINCIBLE)) != 0); // flag의 무적 비트만 남기고 다 0으로 만드는 마스크를 씌우고 해당 비트 확인
 
     // 무적이거나 스턴 상태인지 확인하고 싶다
-    int mask = (1 << INVINCIBLE) | (1 << STUNNED);
-    bool stunnedOrInvincible = ((flag & mask) != 0);
+    int mask = (1 << INVINCIBLE) | (1 << STUN);
+    bool stunOrInvincible = ((flag & mask) != 0);
 
 #pragma endregion
 }

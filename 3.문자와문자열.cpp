@@ -50,7 +50,8 @@ char str2[] = "Hello"; // 맨 뒤의 '\0'이 포함되어 길이가 6임! // 위
 wchar_t str3[] = L"Hello";
 
 
-int main() {
+int main() 
+{
     
     cout << ch << endl;
     cout << ch2 << endl;

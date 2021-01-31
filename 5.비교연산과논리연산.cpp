@@ -17,7 +17,8 @@ bool test;
 int hp = 100;
 bool isInvincible = true;
 
-int main() {
+int main() 
+{
 #pragma region 비교 연산
     // 언제 필요한가?
     // ex) 체력이 0이 되면 사망

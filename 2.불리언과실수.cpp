@@ -38,6 +38,7 @@ double attackSpeed = 123.4123;
 // 특히 수가 커질 수록 오차 범위도 매우 커짐
 // 실수 2개를 ==으로 비교하는 것은 지양하자
 
-int main() {
+int main() 
+{
     cout << isPayed << endl; // 1
 }
