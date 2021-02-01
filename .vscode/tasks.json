@@ -31,21 +31,21 @@
               //">",
               //"${fileDirname}/output.txt",
 
-              "&&", //disassembly!!!
-              "g++",
-              "-g",
-              "-fno-asynchronous-unwind-tables",
-              "-fno-exceptions",
-              "-fno-rtti",
-              "-fverbose-asm",
-              "-Wall",
-              "-Wextra",
-              "${file}",
-              //"-O3",
-              "-masm=intel",
-              "-S",
-              "-o",
-              "${fileDirname}/${fileBasenameNoExtension}.S"
+            //   "&&", //disassembly!!!
+            //   "g++",
+            //   "-g",
+            //   "-fno-asynchronous-unwind-tables",
+            //   "-fno-exceptions",
+            //   "-fno-rtti",
+            //   "-fverbose-asm",
+            //   "-Wall",
+            //   "-Wextra",
+            //   "${file}",
+            //   //"-O3",
+            //   "-masm=intel",
+            //   "-S",
+            //   "-o",
+            //   "${fileDirname}/${fileBasenameNoExtension}.S"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

@@ -13,7 +13,7 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "externalConsole": true, // 입력 안되면 true, 아니면 false
+            "externalConsole": false, // 입력 안되면 true, 아니면 false
             "MIMode": "lldb",
             "setupCommands": [
                 {
