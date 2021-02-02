@@ -96,6 +96,22 @@
                 //"${fileDirname}/input.txt",
                 //">",
                 //"${fileDirname}/output.txt",
+
+              "&&", //disassembly!!!
+              "g++",
+              "-g",
+            //   "-fno-asynchronous-unwind-tables",
+            //   "-fno-exceptions",
+            //   "-fno-rtti",
+            //   "-fverbose-asm",
+            //   "-Wall",
+            //   "-Wextra",
+              "-o",
+              "${fileDirname}/${fileBasenameNoExtension}.S",
+              "-S",
+              "${file}",
+              //"-O3",
+              "-masm=intel",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
