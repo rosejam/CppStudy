@@ -16,7 +16,7 @@ void Test()
 
 void IncreaseHp(int hp)
 {
-    hp = hp + 1; // 전달받은 값인 매개 변수를 수정 (main의 지역변수인 hp를 수정하는 것이 아님!!!!)
+    hp = hp + 1; // 전달받은 매개 변수를 수정 (main의 지역변수인 hp를 수정하는 것이 아님!!!!)
     // int finalHp = hp + 1; // 이 함수의 지역 변수를 수정
 }
 
