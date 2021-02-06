@@ -12,8 +12,12 @@ struct StatInfo
 };
 
 void EnterLobby();
+
 StatInfo CreatePlayer(); // 포인터를 배우기 이전 버전 (리턴 값으로 받아 복사)
 void CreateMonster(StatInfo* info); // 포인터를 배운 이후 버전! (포인터를 받아 직접 수정)
+
+void StartBattle();
+
 
 int main()
 {
@@ -43,11 +47,13 @@ void EnterLobby()
 
     // 번외 1)
     // 구조체끼리 복사할 때 무슨 일이 벌어질까?
-    player = monster;
+    // player = monster;
     // 내부적으로 각 요소를 하나하나 복사한다!! 
     // player.hp = monster.hp;
     // player.attack = monster.attack;
     // player.defence = monster.defence;
+
+    StartBattle();
 }
 
 StatInfo CreatePlayer() // &temp
