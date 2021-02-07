@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// 포인터 실습!!
+// 포인터 실습!!!!
 // 전역변수 말고 지역변수를 사용한다
 
 struct StatInfo
@@ -54,6 +54,7 @@ void EnterLobby()
     // player.hp = monster.hp;
     // player.attack = monster.attack;
     // player.defence = monster.defence;
+
 
     bool victory = StartBattle(&player, &monster);
 
