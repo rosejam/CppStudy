@@ -133,11 +133,11 @@ int main()
     // - 명시적으로 ref를 전달하여 값을 수정할 때 OUT을 붙이면 가독성이 좋아진다.
     ChangeInfo(OUT reference);
     
-    // 가독성을 위해, 섞어 사용하지 않도록 한다.
+    // 가독성을 위해, ptr과 ref를 섞어 사용하지 않도록 한다.
 
     pointer = &monster;
+    // pointer [ &monster ] -----> reference, monster[ 데이터 ]
     // Bonus) 포인터로 사용하던걸 참조로 넘겨주려면?
-    // pointer [ &monster ] -----> info, monster[ ]
     PrintInfoByRef(*pointer);
     // Bonus) 참조로 사용하던결 포인터로 넘겨주려면?
     PrintInfoByPtr(&reference);
