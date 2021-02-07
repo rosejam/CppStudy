@@ -16,7 +16,7 @@ void CreateMonster(StatInfo* info) // info = &monster
     info->defence =1;
 }
 
-// 참고) CreateMonster(monster); 해서 매개변수를 StatInfo타입으로 전달한다면?!
+// 참고용) CreateMonster(monster); 해서 매개변수를 StatInfo타입으로 전달한다면?!
 // [매개변수][RET][지역변수(monster)] [매개변수(monster)][RET][지역변수()]
 void CreateMonster(StatInfo info) // info = monster (monster의 값이 통째로 복사되어 info에 전달된다!!!!)
 {
@@ -29,7 +29,8 @@ void CreateMonster(StatInfo info) // info = monster (monster의 값이 통째로
 // 원본값을 수정하지 않는다면, 양쪽 다 일단 문제 없음
 
 // 1) 값 전달 방식 : 원본을 매개변수에 복사해서 복사본을 print
-void PrintInfoByCopy(StatInfo info)
+// [매개변수][RET][지역변수(monster)] [매개변수(monster)][RET][지역변수]
+void PrintInfoByCopy(StatInfo info) // info = monster 복사
 {
     cout << "--------------------" << endl;
     cout << "HP : " << info.hp << endl;
@@ -39,7 +40,8 @@ void PrintInfoByCopy(StatInfo info)
 }
 
 // 2) 주소 전달 방식 : 주소를 통해 원본에 접근해서 원본을 print
-void PrintInfoByPtr(StatInfo* info)
+// [매개변수][RET][지역변수(monster)] [매개변수(&monster)][RET][지역변수]
+void PrintInfoByPtr(StatInfo* info) // info = &monster
 {
     cout << "--------------------" << endl;
     cout << "HP : " << info->hp << endl;
