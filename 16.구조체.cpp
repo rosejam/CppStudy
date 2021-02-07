@@ -21,6 +21,7 @@ struct ObjectInfo
     int attack; // +8
     int defence; // +12
 }; // 총 16바이트 크기
+// 구조체도 변수
 
 ObjectInfo playerInfo; // 전역 변수와 같이 접근한다 (ptr [rip+_playerInfo])
 ObjectInfo monsterInfo;

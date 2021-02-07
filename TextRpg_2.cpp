@@ -34,9 +34,9 @@ void EnterLobby()
     player.hp = 0xbbbbbbbb;
     player.attack = 0xbbbbbbbb;
     player.defence = 0xbbbbbbbb;
-    // [매개변수][RET][지역변수(temp, player)] [매개변수(&temp)][RET][지역변수(ret)]
-    // 1. 지역변수 temp를 만들고 주소인 &temp를 매개변수에 전달
-    player = CreatePlayer(); // 4. player에 temp를 복사
+    // [매개변수][RET][지역변수(player, temp)] [매개변수(&temp)][RET][지역변수(ret)]
+    player = CreatePlayer(); // 1*. 지역변수 temp의 주소 &temp를 매개변수에 전달
+    // 4. player에 temp를 복사 (player = temp2 = temp;)
 
     StatInfo monster;
     monster.hp = 0xbbbbbbbb;
@@ -48,7 +48,7 @@ void EnterLobby()
     // 번외 1)
     // 구조체끼리 복사할 때 무슨 일이 벌어질까?
     // player = monster;
-    // 내부적으로 각 요소를 하나하나 복사한다!! 
+    // 내부적으로 각 요소를 하나하나 복사한다!
     // player.hp = monster.hp;
     // player.attack = monster.attack;
     // player.defence = monster.defence;
@@ -62,16 +62,16 @@ StatInfo CreatePlayer() // &temp
 
     cout << "플레이어 생성"  << endl;
     
-    // 2. 지역변수 ret를 만들고 값 변경
+    // 2. 지역변수 ret의 값 변경
     ret.hp = 100;
     ret.attack = 10;
     ret.defence = 2;
 
-    // 3. temp에 ret을 복사
+    // 3. temp에 ret를 복사 (*(&temp) = ret;)
     return ret; 
 }
 
-void CreateMonster(StatInfo* info)
+void CreateMonster(StatInfo* info) // info = &monster
 {
     cout << "몬스터 생성"  << endl;
 
@@ -79,4 +79,9 @@ void CreateMonster(StatInfo* info)
     info->hp = 40;
     info->attack = 8;
     info->defence =1;
+}
+
+void StartBattle()
+{
+    
 }
