@@ -57,7 +57,7 @@ void PrintInfoByPtr(StatInfo* info)
 
 void PrintInfoByRef(const StatInfo& info) // const를 붙였기 때문에 여기선 수정 불가!!! (왠만해선 붙임)
 {
-    // if(&info == nullptr)
+    // if (&info == nullptr)
     //     return;
 
 
@@ -143,7 +143,7 @@ int main()
     reference = monster;
     // pointer [ &monster ] -----> reference, monster[  데이터  ]
     // Bonus) 포인터로 사용하던걸 참조로 넘겨주려면?
-    PrintInfoByRef(*pointer); // 널 포인터일 경우 조심!!!!
+    PrintInfoByRef(*pointer); // 널 포인터일 경우를 조심!!!
     // Bonus) 참조로 사용하던결 포인터로 넘겨주려면?
     PrintInfoByPtr(&reference);
 
