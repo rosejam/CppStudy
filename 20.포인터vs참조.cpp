@@ -21,7 +21,7 @@ StatInfo* FindMonster()
     // TODO : Heap 영역에서 뭔가를 찾아봄
     // 찾았다
     // return monster;
-    // 아니면
+    // 없다
     return nullptr;
 }
 
@@ -29,7 +29,7 @@ StatInfo globalInfo;
 void PrintInfoByPtr(StatInfo* info)
 {
     if (info == nullptr) // if (!info)
-        return; // 포인터 이므로 널 체크 안해주면 크래시 발생 가능
+        return; // 포인터 이므로 null check 해줘야 크래시 발생안함
 
 
     // info [  &monster  ]    ------->    monster [  데이터  ]
@@ -37,13 +37,13 @@ void PrintInfoByPtr(StatInfo* info)
     // StatInfo* const info
     // 별 뒤에 붙인다면? 아래 명령이 막힘
     // info = &globalInfo; // 다른 주소값으로 변경. 포인터가 다른 곳을 가리키게 됨
-    // info라는 바구니의 내용물(주소)를 바꿀 수 없음
+    // info 바구니의 내용물(주소)를 바꿀 수 없음
     // info안의 주소값이 고정이다! (포탈이 도달하는 곳을 바꿀 수 없음!)
 
     // const StatInfo* info
     // 별 앞에 붙인다면? 아래 명령이 막힘
-    // info->attack = 1000000; // 주소값에 찾아간 데이터를 변경.
-    // info가 '가리키고 있는' 바구니의 내용물을 바꿀 수 없음
+    // info->attack = 1000000; // 주소값에 찾아가서 데이터를 변경.
+    // info가 "가리키고 있는" 바구니의 내용물을 바꿀 수 없음
     // '원격' 바구니의 내용물을 바꿀 수 없음 (포탈을 타고 가서 거기값을 바꿀 수 없음!)
 
     // 별 양쪽에 둘다 붙여도 됨
@@ -55,11 +55,11 @@ void PrintInfoByPtr(StatInfo* info)
     cout << "--------------------" << endl;
 }
 
-void PrintInfoByRef(const StatInfo& info) // const를 붙였기 때문에 여기선 원본을 수정 불가!!!
+void PrintInfoByRef(const StatInfo& info) // const를 붙였기 때문에 여기선 수정 불가!!! (왠만해선 붙임)
 {
-    // 신입이 왔다
-    // info.attack = 100000; // 원본을 막 수정하는 것 방지
-    // info = globalInfo; // 레퍼런스가 가리키는 변수 바꾸는 것 방지
+    // 신입이 왔다 (const를 붙여놓자)
+    // info = globalInfo; // 레퍼런스가 가리키는 변수 바꾸는 것 방지!!
+    // info.attack = 100000; // 원본을 막 수정하는 것 방지!!
 
     cout << "--------------------" << endl;
     cout << "HP : " << info.hp << endl;
@@ -95,50 +95,51 @@ int main()
 
 
     // 2) 초기화 여부
-    // 참조 타입은 바구니의 2번째 이름
-    // 어떤 유효한 대상을 가리키고 있어야 한다는 제약 사항이 있다고 보면 됨
+    // 참조 타입은 바구니의 2번째 이름 같은 것
     // -> 참조하는 대상이 없으면 안됨!!
+    // 어떤 유효한 대상을 가리키고 있어야 한다는 제약 사항이 있다고 보면 됨
     // 반면 포인터는 그냥 어떤 주소 라는 의미
     // -> 대상이 실존하지 않을 수도 있음
 
-    StatInfo* pointer; //가능
+    StatInfo* pointer; // 가능 (유효한 대상을 가리키고 있지 않아도 됌)
     pointer = &monster;
-    PrintInfoByPtr(pointer);
     pointer++; // 가능
+    PrintInfoByPtr(&monster); // 주소를 넘기는게 티가 남
 
-    // StatInfo& reference; // 이건 안됨!
+    // StatInfo& reference; // 안됨!!
     // reference = monster;
     StatInfo& reference = monster;
-    PrintInfoByRef(reference); // 원본을 넘긴다는게 티가 안난다는 단점!!
-    // reference++; // 이것도 안됨!!
+    // reference++; // 안됨!!
+    PrintInfoByRef(monster); // 원본을 넘긴다는게 티가 안난다는 단점!!!
 
-    // 포인터에서 '없다, 아무것도 안가리키고 있다'는 의미로?
-    pointer = nullptr; // 0x0, 주소 0
+    // 그러면 포인터에서 '없다, 아무것도 안가리키고 있다'는 의미로?
+    pointer = nullptr; // 0x0  // NULL(0)도 가능하긴 함
 
-    pointer = FindMonster(); // 장점 : 주소가 있는지 없는지, 상태를 구분할 수 있음!!!!
-    PrintInfoByPtr(pointer); // 단점 : 유효하지 않은 주소 접근 시 에러 발생!!!! (pointer->hp 등)
+    PrintInfoByPtr(pointer); // 단점 : 없는(유효하지 않은) 주소 접근 시 에러 발생!!! (info->hp에서 널 크래시)
+    pointer = FindMonster(); // 장점 : 주소가 있는지 없는지, 상태를 구분할 수 있음!!!
 
     // 참조타입은 이런 nullptr의 개념이 없다.
-    // 단점 : '없다'를 표현할 수 없음
     // 장점 : 유효하지 않은 주소로 인한 에러X
+    // 단점 : '없다'를 표현할 수 없음
 
 
     // 그래서 결론은?
     // 사실 Team By Team... 정해진 답은 없다
-    // ex) 구글에서 만든 오픈소스를 보면 거의 무조건 포인터 사용
+    // ex) 구글에서 만든 오픈소스를 보면 거의 무조건 포인터를 사용
     // ex) 언리얼 엔진에선 reference도 애용
 
-    // - 없는 경우도 고려해야 한다면 ptr
-    // - 바뀌지 않고 읽는 용도만(read only)만 사용하면 const ref&
-    // - 명시적으로 ref를 전달하여 값을 수정할 때 OUT을 붙이면 가독성이 좋아진다.
-    ChangeInfo(OUT reference);
+    // - 없는 경우도 고려해야 한다면 ptr (null check필수)
+    // - 있는 것을 읽는 용도만(read only)만 사용하면 const ref&
+    // - ref를 전달하여 원본값을 수정하는 경우, OUT처럼 표시를 붙이면 가독성이 좋아진다.
+    ChangeInfo(OUT monster);
     
     // 가독성을 위해, ptr과 ref를 섞어 사용하지 않도록 한다.
 
     pointer = &monster;
-    // pointer [ &monster ] -----> reference, monster[ 데이터 ]
+    reference = monster;
+    // pointer [ &monster ] -----> reference, monster[  데이터  ]
     // Bonus) 포인터로 사용하던걸 참조로 넘겨주려면?
-    PrintInfoByRef(*pointer);
+    PrintInfoByRef(*pointer); // 널 포인터일 경우 조심!!!!
     // Bonus) 참조로 사용하던결 포인터로 넘겨주려면?
     PrintInfoByPtr(&reference);
 

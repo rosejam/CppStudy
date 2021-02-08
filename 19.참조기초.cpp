@@ -95,7 +95,7 @@ int main()
 
     // 참고) 
     // &를 변수 앞에 쓸 경우 : 주소값을 리턴하라는 뜻
-    // &를 변수 선언 시 쓸 경우 : 참조 변수를 선언하는 것
+    // &를 변수 선언 시 쓸 경우 : 참조type 변수를 선언하는 것
 
     StatInfo monster;
     CreateMonster(&monster);
