@@ -144,7 +144,7 @@ int main()
     reference = monster;
     // pointer [ &monster ] -----> reference, monster[  데이터  ]
     // Bonus) 포인터로 사용하던걸 참조로 넘겨주려면?
-    PrintInfoByRef(*pointer); // 널 포인터일 경우를 조심!!!!
+    PrintInfoByRef(*pointer); // pointer가 nullptr일 경우를 조심!!!!!
     // Bonus) 참조로 사용하던결 포인터로 넘겨주려면?
     PrintInfoByPtr(&reference);
 
