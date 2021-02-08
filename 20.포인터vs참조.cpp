@@ -57,6 +57,10 @@ void PrintInfoByPtr(StatInfo* info)
 
 void PrintInfoByRef(const StatInfo& info) // const를 붙였기 때문에 여기선 수정 불가!!! (왠만해선 붙임)
 {
+    // if(&info == nullptr)
+    //     return;
+
+
     // 신입이 왔다 (const를 붙여놓자)
     // info = globalInfo; // 레퍼런스가 가리키는 변수 바꾸는 것 방지!!
     // info.attack = 100000; // 원본을 막 수정하는 것 방지!!
