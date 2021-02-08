@@ -35,8 +35,8 @@ void EnterLobby()
     player.attack = 0xbbbbbbbb;
     player.defence = 0xbbbbbbbb;
     // [매개변수][RET][지역변수(player, temp)] [매개변수(&temp)][RET][지역변수(ret)]
-    player = CreatePlayer(); // 1*. 지역변수 temp의 주소 &temp를 매개변수에 전달
-    // 4. player에 temp를 복사 (player = temp2 = temp;)
+    player = CreatePlayer(); // 1. 지역변수 temp의 주소 &temp를 매개변수에 전달
+    // 4. player에 temp를 복사 ( player = (temp2 = temp); )
     // 내부적으로 포인터를 이용, 복사가 여러번 일어남ㅜ
 
     StatInfo monster;
@@ -76,7 +76,7 @@ StatInfo CreatePlayer() // &temp
     ret.defence = 2;
 
     // 3. temp에 ret를 복사 (*(&temp) = ret;)
-    return ret; 
+    return ret;
 }
 
 void CreateMonster(StatInfo* info) // info = &monster
