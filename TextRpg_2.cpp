@@ -37,7 +37,7 @@ void EnterLobby()
     // [매개변수][RET][지역변수(player, temp)] [매개변수(&temp)][RET][지역변수(ret)]
     player = CreatePlayer(); // 1. 지역변수 temp의 주소 &temp를 매개변수에 전달
     // 4. player에 temp를 복사 ( player = (temp2 = temp); )
-    // 내부적으로 포인터를 이용, 복사가 여러번 일어남ㅜ
+    // 복사가 여러번 일어남ㅜ
 
     StatInfo monster;
     monster.hp = 0xbbbbbbbb;
@@ -76,6 +76,7 @@ StatInfo CreatePlayer() // &temp
     ret.defence = 2;
 
     // 3. temp에 ret를 복사 (*(&temp) = ret;)
+    // 참고) x64에선 매개변수 &temp를 전달받지 않고 지역변수 temp에서 지역변수 temp로 복사한다.
     return ret;
 }
 
