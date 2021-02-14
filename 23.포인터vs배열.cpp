@@ -10,7 +10,7 @@ void Test(int a)
 
 // 배열을 함수 인자로 넘기면, 컴파일러가 알아서 포인터로 치환하여 받는다 (char[] -> char*) !!!!!
 // 즉, 배열의 내용 전체를 넘긴 것이 아니라 시작 주소(포인터)만 넘긴 것
-void Test(char a[]) // void Test(char* a)로 알아서 바뀐다!
+void Test(char a[]) // void Test(char* a)로 알아서 바뀐다!!!
 {
     a[0] = 'X'; // 원본을 수정한다!
 }
@@ -57,7 +57,7 @@ int main()
 
 
     char test3[12];
-    // test3 = test2; // 바구니가 아니고 둘다 주소이기 때문에 복사가 안됨!!!
+    // test3 = test2; // 바구니가 아니고 둘다 주소이기 때문에 복사가 안됨!!!!
     *(test3 + 0) = *(test2 + 0);
     *(test3 + 1) = *(test2 + 1);
     cout << test3 << endl;
