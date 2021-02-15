@@ -1,8 +1,6 @@
 #include <iostream>
 using namespace std;
 
-
-
 int main()
 {
     // [4] [2] [3] [4] [1] << 0층

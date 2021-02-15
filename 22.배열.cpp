@@ -79,7 +79,7 @@ int main()
     // 근데 *(monsters + i) 부분은 너무 불편하고 가독성이 떨어진다... 더 편한 방법?
     // 인덱스!!
     // 배열은 0번부터 시작. N번 인덱스에 해당하는 데이터에 접근하려면 : 배열이름[N]
-    // *(monsters + i) 와  monsters[i] 는 완전히 동일한 의미!!!!!
+    // *(monsters + i) 와  monsters[i] 는 완전히 동일한 의미 !!!!!
     // 둘다 i번 인덱스의 데이터에 접근!
     monsters[0].hp = 100;
     monsters[0].attack = 10;

@@ -36,12 +36,8 @@ int main()
     // test2는 주소
     // test2[ 주소 ] // <- 그러나 이런건 없음!!!!! test2가 주소를 담는 바구니는 아니니까!
 
-    // test1[0] = 'R'; // const
+    // test1[0] = 'R'; // const에 막힘
     test2[0] = 'R';
-
-    cout << *test1 << endl;
-    cout << *test2 << endl;
-    cout << endl;
 
 
     // 배열을 함수의 인자로 넘기게 되면?
