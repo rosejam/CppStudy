@@ -26,7 +26,7 @@ int main()
     globalValue++;
     Test();
 
-    cout << '\n';
+    cout << endl;
 
     // 지역 변수
     // 함수 안에서 정의

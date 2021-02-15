@@ -20,7 +20,7 @@ int main()
         count++;
     }
 
-    cout << '\n';
+    cout << endl;
 
     count = 0;
     // do-while
@@ -31,7 +31,7 @@ int main()
         count++;
     } while (count < 3);
     
-    cout << '\n';
+    cout << endl;
 
     // for
     // 맨 위 while문과 동일한 프로세스!!!
@@ -42,7 +42,7 @@ int main()
         cout << "Hello World" << endl;
     }
 
-    cout << '\n';
+    cout << endl;
 
     // 루프문의 흐름 제어, break; 와 continue;
     // break : 무조건 빠져나가기 (break가 포함되어 있는 "바로 안쪽의 그 반복문만"!!)
