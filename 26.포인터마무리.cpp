@@ -4,12 +4,33 @@ using namespace std;
 // 1) 포인터 vs 배열 2탄
 // 2) 주의사항 (마음가짐?)
 
+int& TestRef()
+{
+    int a = 1;
+    return a;
+}
+int* TestPtr()
+{
+    int a = 1;
+    return &a;
+}
+void TestWrong(int* pointer) // pointer = &a
+{
+    int b[100]  = {};
+    b[99] = 0xBBBBBBBB;
+
+    *pointer = 0x12341234; // 의도치 않게 자신의 스택프레임 안의 값을 건드리게 될 확률이 높다?!!
+    
+    // 디버그모드에선 컴파일러가 스택프레임을 0xCCCCCCCC로 채워두어서 메모리가 오염되는지 확인할 수도 있다
+    // 그러나 릴리즈 모드에선 이것이 확인되지 않는다.
+}
+
 int main()
 {
     // 주소를 담는 바구니
     // 진퉁은 저멀리 어딘가에 있음
-    // ptr는 단지 그 곳으로 워프하는 포탈
-    int *ptr;
+    // pointer는 단지 그 곳으로 워프하는 포탈
+    int *pointer;
 
     // 진짜배기 원조 데이터
     // 닭장과 같은 데이터의 묶음 (엄청 많고 거대함)
@@ -18,17 +39,17 @@ int main()
     // 그런데 상당히 많은 사람들이 [배열 = 포인터]라 착각하는 경향이 있음!
 
     // - [배열의 이름]은 배열의 시작 주소값을 가리키는 TYPE*형 포인터로 쉽게 변환 가능!!!!
-    ptr = arr;
+    pointer = arr;
     // -- (배열을 함수 인자로 넘길 때는 자연스럽게 주소를 포인터 타입으로 변환해서 넘긴다!!!!)
 
     // - [TYPE형 1차원 배열]과 [TYPE*형 포인터]는 완전히 호환이 된다!!
-    cout << ptr[0] << endl;
+    cout << pointer[0] << endl;
     cout << arr[0] << endl;
-    cout << ptr[5] << endl;
+    cout << pointer[5] << endl;
     cout << arr[5] << endl;
-    cout << *ptr << endl; // ptr[0]과 동일
+    cout << *pointer << endl; // pointer[0]과 동일
     cout << *arr << endl;
-    cout << *(ptr + 3) << endl; // ptr[3]과 동일
+    cout << *(pointer + 3) << endl; // pointer[3]과 동일
     cout << *(arr + 3) << endl;
     cout << endl;
     // -- (C++ 문법 상 똑같이 사용 가능)
@@ -49,10 +70,10 @@ int main()
     cout << *p << endl; // 1
     cout << endl;
 
-    // arr2는 int(*)[2] 타입!!!!!
+    // arr2는 int(*)[2] 타입 !!!!!
     // int(*)[2] 는 int[2] 배열을 가리키는 포인터 타입!!!! (사실상 "int[2] *"의 의미. 오른쪽부터 대신 괄호 안부터 분석하기!)
-    // (int(*)[]) p2[ 주소 ] -----> (int[]) 주소[1][2] [3][4]
-    // (int(*)[]) p2[ &arr ] -----> (int[])  arr[1][2] [3][4]
+    // (int(*)[]) p2[ 주소 ]  -----> (int[])  주소[1][2] [3][4]
+    // (int(*)[]) p2[ &arr2 ] -----> (int[])  arr2[1][2]
     int(*p2)[2] = arr2;
     cout << (*p2)[0] << endl;
     cout << (*p2)[1] << endl;
@@ -60,10 +81,26 @@ int main()
     cout << p2[0][1] << endl;
     // 포인터 산술 연산으로 p2에 +1하면 +sizeof(int[2])가 된다!!
     // 따라서 p2+1은 +8이 되어 다음 int[2]인 [3][4]를 가리키게 된다!!
+    // (int(*)[]) p2+1[ 주소 ] -----> (int[]) 주소[3][4]
     cout << (*(p2 + 1))[0] << endl;
     cout << (*(p2 + 1))[1] << endl;
     cout << p2[1][0] << endl;
     cout << p2[1][1] << endl;
+
+
+    // 포인터, 참조, 배열 등
+    // 메모리에 직접 접근해서 다룰 수 있는 도구 사용 시에는 조심해아함
+    // 프로그램이 바로 크래시나지는 않지만 엉뚱한 메모리를 조작해서 점점 데이터가 오염되어 어느날 갑자기 크래시 날 수 있음 
+    
+    // [매개변수][RET][지역변수] [매개변수][RET][지역변수(a)]
+    // 지역변수 a의 주소를 리턴함...(값을 효율적으로 전달하려다 실수해서?)
+    // [매개변수][RET][지역변수]
+    // 이 주소는 스택 프레임이 위와 같이 정리되며 "유효하지 않은 메모리"를 가리키게 된다...
+    int* ptr = TestPtr();
+    int& ref = TestRef();
+
+    // [매개변수][RET][지역변수] [매개변수(&a)][RET][지역변수(b)]
+    TestWrong(ptr);
 
     return 0;
 }
