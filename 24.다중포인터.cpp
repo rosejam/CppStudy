@@ -1,11 +1,6 @@
 #include <iostream>
 using namespace std;
 
-void SetNumber(int* a)
-{
-    *a = 1;
-}
-
 void SetMessage(const char* tmp) // msg
 {
     // tmp[ Bye주소 ] ------> Bye주소[B][y][e][\0]
@@ -29,10 +24,6 @@ void SetMessage2(const char*& rp) // rp = msg
 
 int main()
 {
-    int a = 0;
-    SetNumber(&a);
-    // cout << a << endl; // 1
-
     // msg[ Hello주소 ] -----> (.rodata영역) Hello주소[H][e][l][l][o][\0]
     const char* msg = "Hello";
     
