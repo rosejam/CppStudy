@@ -34,7 +34,9 @@ int main()
     int hp = 1;
 
     cout << "Increase 호출 전 : " << hp << endl;
-    IncreaseHp(hp); // 지역변수 "hp안의 값을 push"해서 매개변수로 전달!!!!
+    // [매개변수][ret할주소][이전bp값][지역변수(hp=1)] [매개변수(hp=2)][ret할주소][이전bp값][지역변수]
+    IncreaseHp(hp); // 지역변수 "hp안의 값"을 push해서 매개변수로 전달!!!!
+    // [매개변수][ret할주소][이전bp값][지역변수(hp=1)]
     cout << "Increase 호출 후 : " << hp << endl;
 
     return 0;

@@ -7,12 +7,12 @@ using namespace std;
 int& TestRef()
 {
     int a = 1;
-    return a;
+    return a; // warning
 }
 int* TestPtr()
 {
     int a = 1;
-    return &a;
+    return &a; // warning
 }
 void TestWrong(int* pointer) // pointer = &a
 {
@@ -20,7 +20,6 @@ void TestWrong(int* pointer) // pointer = &a
     b[99] = 0xBBBBBBBB;
 
     *pointer = 0x12341234; // 의도치 않게 자신의 스택프레임 안의 값을 건드리게 될 확률이 높다?!!
-    
     // 디버그모드에선 컴파일러가 스택프레임을 0xCCCCCCCC로 채워두어서 메모리가 오염되는지 확인할 수도 있다
     // 그러나 릴리즈 모드에선 이것이 확인되지 않는다.
 }
@@ -34,30 +33,30 @@ int main()
 
     // 진짜배기 원조 데이터
     // 닭장과 같은 데이터의 묶음 (엄청 많고 거대함)
-    int arr[10] = { 1,2,3,4,5,6,7,8 };
+    int array[10] = { 1,2,3,4,5,6,7,8 };
 
     // 그런데 상당히 많은 사람들이 [배열 = 포인터]라 착각하는 경향이 있음!
 
     // - [배열의 이름]은 배열의 시작 주소값을 가리키는 TYPE*형 포인터로 쉽게 변환 가능!!!!
-    pointer = arr;
+    pointer = array;
     // -- (배열을 함수 인자로 넘길 때는 자연스럽게 주소를 포인터 타입으로 변환해서 넘긴다!!!!)
 
     // - [TYPE형 1차원 배열]과 [TYPE*형 포인터]는 완전히 호환이 된다!!
     cout << pointer[0] << endl;
-    cout << arr[0] << endl;
-    cout << pointer[5] << endl;
-    cout << arr[5] << endl;
+    cout << array[0] << endl;
     cout << *pointer << endl; // pointer[0]과 동일
-    cout << *arr << endl;
-    cout << *(pointer + 3) << endl; // pointer[3]과 동일
-    cout << *(arr + 3) << endl;
+    cout << *array << endl;
+    cout << pointer[5] << endl;
+    cout << array[5] << endl;
+    cout << *(pointer + 5) << endl; // pointer[5]과 동일
+    cout << *(array + 5) << endl;
     cout << endl;
     // -- (C++ 문법 상 똑같이 사용 가능)
 
     
     // 지옥을 보여드리겠습니다. (2차원 배열 vs 다중 포인터)
-    // arr2[1][2][3][4]
-    int arr2[2][2] = { {1, 2}, {3, 4} };
+    // arr2[1][2][3][4][5][6]
+    int arr2[3][2] = { {1, 2}, {3, 4}, {5, 6} };
     
     // (int**) pp[ &arr2 ] -----> (int*) 주소1[ 0x200000001(주소2???라고 주장) ] -----> (int) 0x200000001[ ??? ](4바이트 정수의 바구니)
     int** pp = (int**)arr2; // 강제로 캐스팅(형변환)해서 넣어보면
@@ -72,20 +71,24 @@ int main()
 
     // arr2는 int(*)[2] 타입 !!!!!
     // int(*)[2] 는 int[2] 배열을 가리키는 포인터 타입!!!! (사실상 "int[2] *"의 의미. 오른쪽부터 대신 괄호 안부터 분석하기!)
-    // (int(*)[]) p2[ 주소 ]  -----> (int[])  주소[1][2] [3][4]
-    // (int(*)[]) p2[ &arr2 ] -----> (int[])  arr2[1][2]
+    // (int(*)[]) p2[ 주소 ]  -----> (int[]) 주소[1][2]
+    // (int(*)[]) p2[ &arr2 ] -----> (int[]) arr2[1][2]
     int(*p2)[2] = arr2;
     cout << (*p2)[0] << endl;
-    cout << (*p2)[1] << endl;
     cout << p2[0][0] << endl;
+    cout << (*p2)[1] << endl;
     cout << p2[0][1] << endl;
-    // 포인터 산술 연산으로 p2에 +1하면 +sizeof(int[2])가 된다!!
-    // 따라서 p2+1은 +8이 되어 다음 int[2]인 [3][4]를 가리키게 된다!!
-    // (int(*)[]) p2+1[ 주소 ] -----> (int[]) 주소[3][4]
+    // 포인터 산술 연산으로 p2에 +1을 하면 실제로는 +sizeof(int[2]), 즉 값에 +8이 된다!!
+    // p2+1은 다음 int[2]인 arr2+1[3][4]를 가리키게 된다!!
     cout << (*(p2 + 1))[0] << endl;
-    cout << (*(p2 + 1))[1] << endl;
+    cout << (*(arr2 + 1))[0] << endl; // 배열이름에도 포인터 산술 연산이 똑같이 적용된다!!!! (실제로는 주소값에 +8이 된다!)
     cout << p2[1][0] << endl;
+    cout << (*(p2 + 1))[1] << endl;
+    cout << (*(arr2 + 1))[1] << endl;
     cout << p2[1][1] << endl;
+    // p2+2와 arr2+2는 다음 int[2]인 [5][6]을 가리키게 된다 (p2값에 +16을 하여 포탈탐)
+    cout << (*(p2 + 2))[0] << endl;
+    cout << (*(p2 + 2))[1] << endl;
 
 
     // 포인터, 참조, 배열 등
@@ -100,7 +103,7 @@ int main()
     int& ref = TestRef();
 
     // [매개변수][RET][지역변수] [매개변수(&a)][RET][지역변수(b)]
-    TestWrong(ptr);
+    // TestWrong(ptr);
 
     return 0;
 }
