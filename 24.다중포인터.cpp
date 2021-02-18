@@ -16,7 +16,7 @@ void SetMessage(const char** pp) // pp = &msg
     // pp[ &msg ] -----> msg[ Bye주소 ] ------> Bye주소[B][y][e][\0]
     *pp = "Bye"; // main의 지역변수 msg가 Bye의 시작주소를 가리키게 됨!!!
 }
-void SetMessage2(const char*& rp) // rp = msg
+void SetMessage2(const char*& rp) // rp = msg (char*타입의 레퍼런스인 rp)
 {
     // rp[ &msg ] -----> msg[ Wow주소 ] ------> Wow주소[B][y][e][\0]
     rp = "Wow"; // main의 지역변수 msg가 Wow의 시작주소를 가리키게 됨!!!

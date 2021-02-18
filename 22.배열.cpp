@@ -30,7 +30,7 @@ int main()
 
     // 그럼 "배열의 이름"은 뭐지?
     // 곧 배열의 시작 주소
-    // 정확히는 <배열의 시작 위치를 가리키는 TYPE* 포인터> !!!!!!!
+    // 정확히는 <배열의 시작 위치를 가리키는 TYPE* 포인터> !!!!!
     auto WhoAmI = monsters; // (auto는 자동으로 맞춰주는 타입이므로 이걸로 타입 확인)
 
     StatInfo* monster_0 = monsters; // 맨 처음 StatInfo 바구니를 가리킨다

@@ -39,12 +39,14 @@ void PrintInfoByPtr(StatInfo* info)
     // info = &globalInfo; // 다른 주소값으로 변경. 포인터가 다른 곳을 가리키게 됨
     // info 바구니의 내용물(주소)를 바꿀 수 없음
     // info안의 주소값이 고정이다! (포탈이 도달하는 곳을 바꿀 수 없음!)
+    // constant pointer(포인터 상수)
 
     // const StatInfo* info
     // 별 앞에 붙인다면? 아래 명령이 막힘
     // info->attack = 1000000; // 주소값에 찾아가서 데이터를 변경.
     // info가 "가리키고 있는" 바구니의 내용물을 바꿀 수 없음
     // '원격' 바구니의 내용물을 바꿀 수 없음 (포탈을 타고 가서 거기값을 바꿀 수 없음!)
+    // pointer to constant(상수 포인터)
 
     // 별 양쪽에 둘다 붙여도 됨
 

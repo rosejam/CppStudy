@@ -16,7 +16,7 @@ int main()
     {
         for (int room = 0; room < 5; room++)
         {
-            // 왼쪽 인덱스부터 차례대로 접근한다!!
+            // 왼쪽!! 인덱스부터 차례대로 접근한다!!
             int num = apartment2D[floor][room];
             cout << num <<  " ";
         }
