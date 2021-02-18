@@ -9,8 +9,8 @@ int main()
     int first[5] = { 4, 2, 3, 4, 1 };
     int second[5] = { 1, 1, 5, 2, 2 };
 
-    // 5칸짜리가 2개 있어 2*5*4개의 메모리 공간 차지
-    int apartment2D[2][5] = { { 4, 2, 3, 4, 1 }, { 1, 1, 5, 2, 2 } }; // 메모리 상에서 실제로 이렇게 1차원으로 쭉 나열되어 존재!!!
+    // 5칸짜리 배열이 2개 나열되어 있어 5*2*4개의 메모리 공간 차지
+    int apartment2D[][5] = { { 4, 2, 3, 4, 1 }, { 1, 1, 5, 2, 2 } }; // 메모리 상에서 실제로 이렇게 1차원으로 쭉 나열되어 존재!!!
     
     for (int floor = 0; floor < 2; floor++)
     {
@@ -29,7 +29,7 @@ int main()
     {
         for (int room = 0; room < 5; room++)
         {   
-            int index = (floor * 5) + room; // !!
+            int index = (floor * 5) + room; // !!!
             int num = apartment1D[index];
             cout << num <<  " ";
         }
