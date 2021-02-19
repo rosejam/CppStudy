@@ -38,7 +38,7 @@ void PrintInfoByPtr(StatInfo* info)
     // 별 뒤에 붙인다면? 아래 명령이 막힘
     // info = &globalInfo; // 다른 주소값으로 변경. 포인터가 다른 곳을 가리키게 됨
     // info 바구니의 내용물(주소)를 바꿀 수 없음
-    // info안의 주소값이 고정이다! (포탈이 도달하는 곳을 바꿀 수 없음!)
+    // info안의 주소값이 고정이다! (포탈이 도달하는 위치를 바꿀 수 없음!)
     // constant pointer(포인터 상수)
 
     // const StatInfo* info
