@@ -34,8 +34,8 @@ char* StrCpy(char* dst, char* src)
     // 배열 대신 포인터를 활용하는 방법
     char* ret = dst;
 
-    // while (*src != '\0')
-    while (*src)
+    while (*src != '\0')
+    // while (*src)
     {
         // *dst = *src;
         // dst++;
@@ -71,6 +71,7 @@ char* StrCat(char* dst, char* src)
 
     while (*dst)
         dst++;
+    // for (; *dst; ++dst); // 이렇게 한줄로 줄일 수 있다!
     
     while (*src)
     {
@@ -82,7 +83,35 @@ char* StrCat(char* dst, char* src)
 
     return ret;
 }
-// 문제4)
+// 문제4) 두 문자열을 비교하는 함수
+// [H][e][l][l][o][\0][][][][][][][][][][][][][][][][]...[][][][][][][]
+// [H][e][l][l][\0][][][][][][][][][][][][][][][][][]...[][][][][][][]
+int StrCmp(char *a, char *b)
+{
+    int i = 0;
+    
+    while (a[i] == b[i])
+    {
+        if(a[i] == '\0') // while안이므로 ||대신 한가지만 체크해도 됨!
+            return 0;
+        i++;
+    }
+    
+    return (a[i] < b[i] ? -1 : +1);
+    // return a[i] - b[i];
+}
+
+// 문제5) 문자열을 뒤집는 함수
+void ReverseStr(char* str)
+{
+    int len = StrLen(str);
+    for(int i = 0; i < len/2; i++)
+    {
+        char temp = str[i];
+        str[i] = str[len-1-i];
+        str[len-1-i] = temp;
+    }
+}
 
 #pragma warning(disable: 4996)
 
@@ -91,39 +120,42 @@ int main()
     const int BUF_SIZE = 100;
 
     // [H][e][l][l][o][\0][][][][][][][][][][][][][][][][]...[][][][][][][]
-    char a[BUF_SIZE] = "Hello";
-    char b[BUF_SIZE];
+    char d[BUF_SIZE] = "Hello";
+    char e[BUF_SIZE];
 
-    // sizeof(a)를 하면 BUF_SIZE가 될 것임
-    // int len = strlen(a); // '\0'제외한 길이를 반환해줌 or '\0'의 인덱스를 반환해줌
-    int len = StrLen(a);
+    // sizeof(d)를 하면 BUF_SIZE가 될 것임
+    // int len = strlen(d); // '\0'제외한 길이를 반환해줌 or '\0'의 인덱스를 반환해줌
+    int len = StrLen(d);
     cout << len << endl;
 
-    // dst에 src를 복사
-    // b = a; // 배열에 배열을 이렇게 대입하면 에러
+    // dst e에 src b를 복사
+    // e = d; // 배열에 배열을 이렇게 대입하면 에러
     // 하나하나씩 복사를 해줘야 함!
-    // strcpy(b, a); // warning : 목적지 b의 버퍼가 작을 경우 버퍼 오버플로우가 발생!!!
-    // strcpy_s(b, a); // 이건 길이 체크해줘서 괜찮음
-    StrCpy(b, a);
+    // strcpy(e, d); // warning : 목적지 e의 버퍼가 작을 경우 버퍼 오버플로우가 발생!!!
+    // strcpy_s(e, d); // 이건 길이 체크해줘서 괜찮음
+    StrCpy(e, d);
 
     // dst의 끝에 src를 덧붙이기
     char c[BUF_SIZE] = " World";
-    // strcat(a, c);
-    StrCat(a, c);
+    // strcat(e, c);
+    StrCat(e, c);
     
     // 문자열 비교
-    char d[BUF_SIZE] = "Hello";
-    char e[BUF_SIZE] = "Hella";
+    char a[BUF_SIZE] = "Hello";
+    char b[BUF_SIZE] = "Hella";
     
-    if (d == e) // 값 비교가 아님!!!!
+    if (a == b) // 값 비교가 아니고 주소 비교임!!!
         cout << "같다" << endl;
     else
-        cout << "다르다" << endl; // d와 e의 주소값은 당연히 무조건 다르다!!!!
+        cout << "다르다" << endl; // a와 b의 주소값은 당연히 무조건 다르다!!!
+    cout << endl;
 
-    int value = strcmp(d, e); // 한글자씩 모두 비교해야함 
-    // 둘의 ASCII순서를 리턴!!!! <:음수 =:0 >:양수
+    int value = StrCmp(a, b); // 한글자씩 모두 비교해야함
+    // 둘의 ASCII순서를 리턴!!!! a-b <:음수 =:0 >:양수
     cout << value << endl;
-    
+
+    ReverseStr(e); // 헬로월드 뒤집기
+    cout << e << endl;
 
     return 0;
 }
