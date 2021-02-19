@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 using namespace std;
 
 int main()
@@ -116,6 +117,28 @@ int main()
             cout << endl;
         }
     }
+    cout << endl;
+
+    cout << typeid(&ptr).name() << endl; // 얘만 다른 주소!!!
+    cout << typeid(&arr).name() << endl;
+    cout << endl;
+    cout << typeid(ptr).name() << endl;
+    cout << typeid(arr).name() << endl;
+    cout << typeid(&ptr[0]).name() << endl;
+    cout << typeid(&arr[0]).name() << endl;
+    cout << endl;
+    cout << typeid(ptr[0]).name() << endl;
+    cout << typeid(arr[0]).name() << endl;
+    cout << typeid(&ptr[0][0]).name() << endl;
+    cout << typeid(&arr[0][0]).name() << endl;
+    cout << endl;
+    cout << typeid(ptr[0][0]).name() << endl;
+    cout << typeid(arr[0][0]).name() << endl;
+    cout << typeid(&ptr[0][0][0]).name() << endl;
+    cout << typeid(&arr[0][0][0]).name() << endl;
+    cout << endl;
+    cout << typeid(ptr[0][0][0]).name() << endl; // 값
+    cout << typeid(arr[0][0][0]).name() << endl; // 값
 
     return 0;
 }
