@@ -22,6 +22,15 @@ void SetMessage2(const char*& rp) // rp = msg (char*타입의 레퍼런스인 rp
     rp = "Wow"; // main의 지역변수 msg가 Wow의 시작주소를 가리키게 됨!!!
 }
 
+void SetMessage2(char(&ra)[6]) // ra = msg2 (char[6]타입의 레퍼런스인 ra)
+{
+    // msg2[W][o][w][\0]
+    ra[0] = 'W';
+    ra[1] = 'o';
+    ra[2] = 'w';
+    ra[3] = '\0';
+}
+
 int main()
 {
     // msg[ Hello주소 ] -----> (.rodata영역) Hello주소[H][e][l][l][o][\0]
@@ -48,6 +57,13 @@ int main()
     // [매개변수][RET][지역변수(msg = Hello주소)] [매개변수(&msg)][RET][지역변수]
     SetMessage2(msg); // SetMessage(&msg) 와 완전히 동일!!!!
     cout << msg << endl;
+    cout << endl;
+
+
+    // reference of array (내가 작성해서 추가함)
+    char msg2[] = "Hello";
+    SetMessage2(msg2);
+    cout << msg2 << endl;
 
     return 0;
 }
