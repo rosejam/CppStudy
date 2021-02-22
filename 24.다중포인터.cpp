@@ -17,13 +17,15 @@ void SetMessage(const char** pp) // pp = &msg
     *pp = "Bye"; // main의 지역변수 msg가 Bye의 시작주소를 가리키게 됨!!!
 }
 void SetMessage2(const char*& rp) // rp = msg (char*타입의 레퍼런스인 rp)
-{
+{   
     // rp[ &msg ] -----> msg[ Wow주소 ] ------> Wow주소[B][y][e][\0]
     rp = "Wow"; // main의 지역변수 msg가 Wow의 시작주소를 가리키게 됨!!!
 }
 
 void SetMessage2(char(&ra)[6]) // ra = msg2 (char[6]타입의 레퍼런스인 ra)
 {
+    // ra가 1차원 배열인 msg2의 별칭이 되어 동일하게 취급된다!
+    // (이때도 배열 이름인 msg2에 decay가 일어나지 않는다!!!)
     // msg2[W][o][w][\0]
     ra[0] = 'W';
     ra[1] = 'o';
