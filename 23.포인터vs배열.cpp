@@ -52,7 +52,7 @@ int main()
     cout << a << endl;
 
     // test2가 바뀔까? 안바뀔까? -> 바뀐다!
-    Test(test2); // 배열을 인자로 넘길 때는 "시작 주소값"만 넘긴다!
+    Test(test2); // 배열을 인자로 넘길 때는 "시작 주소값"만 넘긴다!!
     cout << test2 << endl;
     cout << endl;
 
