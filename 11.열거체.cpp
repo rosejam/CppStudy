@@ -1,16 +1,18 @@
 #include <iostream>
 using namespace std;
 
-// 상수인건 알겠는데 너무 따로 노는 느낌?
+// 아래건 상수인건 알겠는데 너무 따로 노는 느낌?
 // 나중에 값을 지정할 수도 없음
 const int CONST_SCISSORS = 1;
 const int CONST_ROCK = 2;
 const int CONST_PAPER = 3;
 // 경우에 따라서 메모리에 올라갈 수도, 그냥 상수로 치환될 수도 있다.
 
+
+// enum은 '정수형 상수'들의 집합으로 새롭게 정의한 '자료형'
 // 하나의 enum으로 관리되는 정수들
 // 숫자를 지정 안하면 첫 값은 0
-// 그 다음 값들은 이전 값 +1 
+// 그 다음 값들은 이전 값 +1
 enum SRP // (enum 이름)
 {
     ENUM_SCISSORS = 1,
