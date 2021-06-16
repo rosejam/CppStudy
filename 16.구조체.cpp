@@ -32,5 +32,9 @@ int main()
 
     playerInfo.type = 11;
     playerInfo2.type = 12;
-    cout << playerInfo.type << " " << playerInfo2.type;
+    cout << playerInfo.type << " " << playerInfo2.type << endl;
+
+    playerInfo = playerInfo2; // 구조체는 일반 변수와 마찬가지로 복사가 된다 !!!!!
+    playerInfo.type = 13;
+    cout << playerInfo.type << " " << playerInfo2.type << endl;
 }

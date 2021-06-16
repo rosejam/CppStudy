@@ -21,7 +21,7 @@ int main()
     // TYPE 이름[개수]
     // 배열의 크기(개수/길이)는 상수여야 함 (VC 컴파일러 기준)
     const int monsterCount = 10;
-    StatInfo monsters[monsterCount];
+    StatInfo monsters[monsterCount]; // 구조체의 배열
 
     // 여태껏 변수들의 이름은 바구니의 이름이었음
     // 그런데 배열은 '이름'이 조금 다르게 동작한다
@@ -58,7 +58,7 @@ int main()
     monster_2.defence = 3;
 
     // [주의] 위와 이거는 완전 다른 의미이다
-    StatInfo temp = *(monsters + 2); // 내용물 복사!!!!
+    StatInfo temp = *(monsters + 2); // 구조체의 내용물을 복사!!!!
     // StatInfo[  ] StatInfo[  ] 주소[ (300,30,3) ] ... StatInfo[  ] StatInfo[  ] 
     // temp[ (400,40,4) ] : (원본은 바뀌지 않고 복사본을 수정함)
     temp.hp = 400;
